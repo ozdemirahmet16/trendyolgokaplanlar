@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Günlük Kazanılan +Para Hesaplama</title>
+    <style>
+        /* Genel sayfa stili */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333; /* Arka plan koyu renk */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        /* Konteyner */
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 600px; /* Genişlik artırıldı */
+            text-align: center;
+        }
+
+        /* Başlık */
+        h1 {
+            font-size: 1.4em;
+            color: #ff5722;
+        }
+
+        /* Etiketler ve giriş alanları */
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            margin: 5px 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1em;
+            background-color: #fafafa;
+        }
+
+        /* Hesapla butonu */
+        button {
+            padding: 10px 20px;
+            background-color: #ff5722;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e64a19;
+        }
+
+        /* Sonuç bölümü */
+        h2 {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #00796b;
+        }
+
+        #sonuc {
+            font-weight: bold;
+            color: #388e3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Günlük Kazanılan +Para Hesaplama</h1>
+        
+        <label for="acilisKazanci">Açılış Kazancı (₺) Giriniz:</label>
+        <input type="number" id="acilisKazanci" placeholder="Günlük Kazançlarım Kısmından Hesaplama Yapılan Günün Açılış Ücreti giriniz" style="width: 100%;">
+
+        <label for="tekliPaketSayisi">Tekli Paket Sayısı Giriniz:</label>
+        <input type="number" id="tekliPaketSayisi" placeholder="Tekli Paket Sayısı">
+
+        <label for="cokluPaketIkinciVeSonraki">Çoklu Paketlerin 2. Paket ve Daha Fazlasının Sayısı Giriniz:</label>
+        <input type="number" id="cokluPaketIkinciVeSonraki" placeholder="Çoklu Paket Sayısı">
+
+        <button onclick="hesapla()">Hesapla</button>
+
+        <h2>Günlük Kazanılan + Para: <span id="sonuc">0</span> ₺</h2>
+
+<h1 style="font-size: 1em;">Eski Alevli 🔥 Saat Baremleri</h1>
+<table style="width: 100%; margin-top: 10px; border-collapse: collapse; font-size: 0.9em;">
+    <tr>
+        <th style="border: 1px solid #ddd; padding: 5px; background-color: #ffeb3b;">Paket Sayısı</th>
+        <th style="border: 1px solid #ddd; padding: 5px; background-color: #ffeb3b;">Kazanç (₺)</th>
+    </tr>
+    <tr>
+        <td style="border: 1px solid #ddd; padding: 5px; text-align: center;">9 Paket</td>
+        <td style="border: 1px solid #ddd; padding: 5px; text-align: center;">110₺</td>
+    </tr>
+    <tr>
+        <td style="border: 1px solid #ddd; padding: 5px; text-align: center;">13 Paket</td>
+        <td style="border: 1px solid #ddd; padding: 5px; text-align: center;">175₺</td>
+    </tr>
+    <tr>
+        <td style="border: 1px solid #ddd; padding: 5px; text-align: center;">17 Paket</td>
+        <td style="border: 1px solid #ddd; padding: 5px; text-align: center;">240₺</td>
+    </tr>
+    <tr>
+        <td style="border: 1px solid #ddd; padding: 5px; text-align: center;">21 Paket</td>
+        <td style="border: 1px solid #ddd; padding: 5px; text-align: center;">325₺</td>
+    </tr>
+    <tr>
+        <td style="border: 1px solid #ddd; padding: 5px; text-align: center;">25 Paket</td>
+        <td style="border: 1px solid #ddd; padding: 5px; text-align: center;">400₺</td>
+    </tr>
+    <tr>
+        <td style="border: 1px solid #ddd; padding: 5px; text-align: center;">30 Paket</td>
+        <td style="border: 1px solid #ddd; padding: 5px; text-align: center;">500₺</td>
+    </tr>
+    <tr>
+        <td style="border: 1px solid #ddd; padding: 5px; text-align: center;">35 Paket</td>
+        <td style="border: 1px solid #ddd; padding: 5px; text-align: center;">600₺</td>
+    </tr>
+</table>
+
+
+    </div>
+
+    <script>
+        function hesapla() {
+            // Kullanıcıdan değerleri al
+            var acilisKazanci = parseFloat(document.getElementById("acilisKazanci").value);
+            var tekliPaketSayisi = parseInt(document.getElementById("tekliPaketSayisi").value);
+            var cokluPaketIkinciVeSonraki = parseInt(document.getElementById("cokluPaketIkinciVeSonraki").value);
+
+            // Değerlerin geçerli olup olmadığını kontrol et
+            if (isNaN(acilisKazanci) || isNaN(tekliPaketSayisi) || isNaN(cokluPaketIkinciVeSonraki)) {
+                alert("Lütfen tüm alanlara geçerli bir değer girin.");
+                return;
+            }
+
+            // Formüle göre hesaplama yap
+            var gider = (tekliPaketSayisi * 24) + (cokluPaketIkinciVeSonraki * 15.5);
+            var gunlukKazanc = acilisKazanci - gider;
+
+            // Sonucu ekrana yazdır
+            document.getElementById("sonuc").innerText = gunlukKazanc.toFixed(2);
+        }
+    </script>
+</body>
+</html>
