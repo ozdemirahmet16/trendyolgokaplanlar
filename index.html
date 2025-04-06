@@ -11,11 +11,11 @@
             padding: 0;
             text-align: center;
             background-image: url('Kaplanlar_Motorcycle_Courrier.jpg');
-            background-size: contain; /* Görselin tamamını göstermek için contain kullan */
-            background-position: center center; /* Görseli merkezde hizala */
-            background-repeat: no-repeat; /* Görselin tekrar etmesini engelle */
-            background-attachment: fixed; /* Sayfa kaydırıldığında arka planı sabit tut */
-            background-color: #000; /* Kenarlarda oluşacak boşluklar için arka plan rengi */
+            background-size: contain;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: #000;
             color: white;
         }
 
@@ -28,27 +28,30 @@
 
         p {
             font-size: 20px;
-            color: #FF7F00;
-            background-color: rgba(255, 255, 255, 0.8);
-            display: inline-block;
+            color: #FF7F00; /* Turuncu renk korundu */
+            background-color: rgba(0, 0, 0, 0.7); /* Hafif şeffaf siyah arka plan */
             padding: 10px;
             border-radius: 5px;
+            display: inline-block;
         }
 
         a {
             display: block;
-            margin: 20px;
+            margin: 20px auto;
+            max-width: 300px;
             font-size: 18px;
-            color: #333;
+            color: #fff; /* Beyaz yazı */
             text-decoration: none;
             padding: 10px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border: 1px solid #ddd;
+            background-color: rgba(0, 100, 0, 0.5); /* Şeffaf yeşil arka plan */
+            border: 1px solid #FF7F00; /* Turuncu kenar */
             border-radius: 5px;
         }
 
         a:hover {
-            background-color: #ddd;
+            background-color: rgba(0, 150, 0, 0.7); /* Hover'da biraz daha koyu ve şeffaf yeşil */
+            color: #FF7F00; /* Hover'da turuncu yazı */
+            border: 1px solid #fff; /* Beyaz kenar */
         }
 
         /* Küçük ekranlar için medya sorgusu */
@@ -64,6 +67,7 @@
             a {
                 font-size: 16px;
                 padding: 8px;
+                max-width: 250px;
             }
         }
     </style>
@@ -72,8 +76,6 @@
     <h1>Trendyol Go Kaplanlar Web Sitesine Hoşgeldiniz</h1>
     <p>İlgilendiğiniz sayfaya gitmek için aşağıdaki bağlantılara tıklayın:</p>
     
-    <a href="YatacakPara.html">Yatacak Para Hesaplama Sayfasına Git</a>
-    <a href="artipara.html">+ Para Hesaplama Sayfasına Git</a>
-    <a href="https://docs.google.com/spreadsheets/d/1nDbCAehAuZgisLoTwxmGiF_yZb_uXHd88t1A2U3DlO0/edit?usp=drive_link">2024 Yılı Bursa Bilanço</a>
-</body>
+    <a href="YatacakPara.html"> 2025 Yatacak Para Hesaplama Sayfasına Git</a>
+    </body>
 </html>
