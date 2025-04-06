@@ -1,0 +1,159 @@
+<!DOCTYPE html> 
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesaba Yatacak Ücreti Hesaplama</title>
+    <style>
+        /* Yukarı Aşağı Okları Kaldırma */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield; /* Firefox için */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f4f4f4;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="number"],
+        select {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 1.2em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e6f7ff;
+            border: 1px solid #91d5ff;
+            border-radius: 5px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            font-size: 1.1em;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .result p {
+            margin: 0;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .result-icon {
+            font-size: 1.5em;
+            color: #4CAF50;
+        }
+        
+        .result-icon.kesinti {
+            color: #ff4d4f;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>KDV DAHİL BRÜT KAZANÇTAN <br>Tevkifat Kesintisi ve Tamamlayıcı Sağlık Sigortası Kesintisi Yapılınca <br>HESABA YATACAK TUTARI HESAPLAMA<br></h2>
+    
+    <label for="brut">KDV Dahil Brüt Kazancınızı Giriniz:</label>
+    <input type="number" id="brut" placeholder="Örn: 9124,94" step="0.01">
+
+    <label for="sigorta">Tamamlayıcı Sağlık Sigortası Seçiniz:</label>
+    <select id="sigorta">
+        <option value="129.90">129,90₺</option>
+        <option value="149.90">149,90₺</option>
+    </select>
+
+    <button onclick="hesapla()">Hesapla</button>
+
+    <div id="sonuc" class="result" style="display: none;"></div>
+</div>
+
+<script>
+    function hesapla() {
+        const brutUcret = parseFloat(document.getElementById("brut").value);
+        const sigortaMiktari = parseFloat(document.getElementById("sigorta").value);
+        const kdvOrani = 0.20; // %20 KDV
+        const tevkifatOrani = 0.20; // %20 Tevkifat
+        const tevkifatLimit = 6900; // 6900₺ altında tevkifat yok
+
+        if (isNaN(brutUcret)) {
+            document.getElementById("sonuc").innerHTML = "Lütfen geçerli bir brüt tutar girin.";
+            document.getElementById("sonuc").style.display = "block";
+            return;
+        }
+
+        let tevkifatTutari = 0;
+        let yatacakPara = brutUcret;
+
+        // Tevkifat kesintisini hesapla
+        if (brutUcret > tevkifatLimit) {
+            const kdvTutari = brutUcret * kdvOrani / (1 + kdvOrani);
+            tevkifatTutari = kdvTutari * tevkifatOrani;
+            yatacakPara = brutUcret - tevkifatTutari;
+        }
+
+        // Tamamlayıcı sağlık sigortası kesintisini de dahil et
+        yatacakPara -= sigortaMiktari;
+
+        // Sonuçları ekranda göster
+        document.getElementById("sonuc").innerHTML = `
+            <p><span class="result-icon">💰</span>Yatacak Para: ${yatacakPara.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₺</p>
+            <p><span class="result-icon kesinti">📉</span>Tevkifat Kesintisi: ${tevkifatTutari.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₺</p>
+            <p><span class="result-icon kesinti">🏥</span>Tamamlayıcı Sağlık Sigortası Kesintisi: ${sigortaMiktari.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₺</p>
+        `;
+        document.getElementById("sonuc").style.display = "block";
+    }
+</script>
+
+</body>
+</html>
