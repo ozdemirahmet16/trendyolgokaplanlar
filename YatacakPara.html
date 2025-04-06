@@ -115,12 +115,30 @@
         .result-icon.kesinti {
             color: #FF0000; /* Kırmızı */
         }
+        h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+h2 .baslik {
+    font-size: 28px; /* Ana başlık boyutu (mevcut haliyle aynı) */
+}
+
+h2 .aciklama {
+    font-size: 18px; /* Açıklama kısmı için daha küçük boyut */
+    display: block; /* Alt satıra geçmesi için */
+}
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>2025 YILI HESABA YATACAK TUTARI HESAPLAMA <br> KDV DAHİL BRÜT KAZANÇTAN <br>Tevkifat Kesintisi ve Tamamlayıcı Sağlık Sigortası Kesintisi Yapılınca Yatacak Miktar ₺ </h2>
+    <h2>
+    <span class="baslik">2025 YILI HESABA YATACAK TUTARI HESAPLAMA</span>
+    <br>
+    <span class="aciklama">KDV DAHİL BRÜT KAZANÇTAN <br>Tevkifat Kesintisi ve Tamamlayıcı Sağlık Sigortası Kesintisi Yapılınca Yatacak Miktar ₺</span>
+</h2>
     <p class="tevkifat-info">2025 Yılı Tevkifat Sınırı: 9.900₺</p>
     
     <label for="brut">KDV Dahil Brüt Kazancınızı Giriniz:</label>
