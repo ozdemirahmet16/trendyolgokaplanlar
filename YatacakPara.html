@@ -18,26 +18,42 @@
 
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
+            padding: 20px;
+            background-image: url('Kaplanlar_Motorcycle_Courrier.jpg');
+            background-size: contain;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: #000;
+            color: white;
         }
 
         .container {
             max-width: 400px;
             margin: 0 auto;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #FF7F00; /* Turuncu kenar */
             border-radius: 5px;
-            background-color: #f4f4f4;
+            background-color: rgba(0, 0, 0, 0.7); /* Şeffaf siyah arka plan */
         }
 
         h2 {
             text-align: center;
             margin-bottom: 20px;
-            color: #333;
+            color: #fff; /* Beyaz yazı */
+        }
+
+        p.tevkifat-info {
+            text-align: center;
+            color: #FF7F00; /* Turuncu */
+            font-size: 1.1em;
+            margin-bottom: 20px;
         }
 
         label {
             font-weight: bold;
+            color: #fff; /* Beyaz */
         }
 
         input[type="number"],
@@ -47,35 +63,37 @@
             padding: 10px;
             margin-bottom: 15px;
             font-size: 1.2em;
-            border: 1px solid #ccc;
+            border: 1px solid #FF7F00; /* Turuncu kenar */
             border-radius: 4px;
             box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.9); /* Hafif şeffaf beyaz */
+            color: #333;
         }
 
         button {
             width: 100%;
             padding: 10px;
             font-size: 1.2em;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
+            background-color: rgba(0, 100, 0, 0.8); /* Şeffaf yeşil */
+            color: #fff; /* Beyaz yazı */
+            border: 1px solid #FF7F00; /* Turuncu kenar */
             border-radius: 4px;
             cursor: pointer;
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: rgba(0, 150, 0, 0.9); /* Daha koyu yeşil */
+            color: #FF7F00; /* Turuncu yazı */
         }
 
         .result {
             margin-top: 20px;
             padding: 15px;
-            background-color: #e6f7ff;
-            border: 1px solid #91d5ff;
+            background-color: rgba(0, 0, 0, 0.7); /* Şeffaf siyah */
+            border: 1px solid #FF7F00; /* Turuncu kenar */
             border-radius: 5px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             font-size: 1.1em;
-            color: #333;
+            color: #fff; /* Beyaz yazı */
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -91,18 +109,19 @@
 
         .result-icon {
             font-size: 1.5em;
-            color: #4CAF50;
+            color: #00FF00; /* Yeşil */
         }
         
         .result-icon.kesinti {
-            color: #ff4d4f;
+            color: #FF0000; /* Kırmızı */
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>KDV DAHİL BRÜT KAZANÇTAN <br>Tevkifat Kesintisi ve Tamamlayıcı Sağlık Sigortası Kesintisi Yapılınca <br>HESABA YATACAK TUTARI HESAPLAMA<br></h2>
+    <h2>KDV DAHİL BRÜT KAZANÇTAN <br>Tevkifat Kesintisi ve Tamamlayıcı Sağlık Sigortası Kesintisi Yapılınca <br>HESABA YATACAK TUTARI HESAPLAMA</h2>
+    <p class="tevkifat-info">2025 Yılı Tevkifat Sınırı: 9.900₺</p>
     
     <label for="brut">KDV Dahil Brüt Kazancınızı Giriniz:</label>
     <input type="number" id="brut" placeholder="Örn: 9124,94" step="0.01">
@@ -124,7 +143,7 @@
         const sigortaMiktari = parseFloat(document.getElementById("sigorta").value);
         const kdvOrani = 0.20; // %20 KDV
         const tevkifatOrani = 0.20; // %20 Tevkifat
-        const tevkifatLimit = 6900; // 6900₺ altında tevkifat yok
+        const tevkifatLimit = 9900; // 2025 için 9900₺
 
         if (isNaN(brutUcret)) {
             document.getElementById("sonuc").innerHTML = "Lütfen geçerli bir brüt tutar girin.";
