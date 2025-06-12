@@ -129,8 +129,8 @@
 
 <div class="container">
     <h2>
-        <span class="baslik">2025 YILI HESABA YATACAK TUTARI HESAPLAMA</span><br>
-        <span class="aciklama">KDV Dahil Brüt Kazançtan <br>Tevkifat Kesintisi ve Tamamlayıcı Sağlık Sigortası Kesintisi Yapılınca Yatacak Miktar ₺</span>
+        <span class="baslik">2025 YILI YATACAK PARA HESAPLAMA</span><br>
+
     </h2>
     <p class="tevkifat-info">2025 Yılı Tevkifat Sınırı: 9.900₺</p>
     
@@ -179,11 +179,11 @@
         yatacakPara -= nakitTahsilat;
 
         document.getElementById("sonuc").innerHTML = `
+            <p><span class="result-icon kesinti">💵</span>Nakit Tahsilat Miktarı: ${nakitTahsilat.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₺</p>
             <p><span class="result-icon">💰</span>Yatacak Para: ${yatacakPara.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₺</p>
             <p><span class="result-icon kesinti">📉</span>Tevkifat Kesintisi: ${tevkifatTutari.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₺</p>
             <p><span class="result-icon kesinti">🏥</span>Tamamlayıcı Sağlık Sigortası Kesintisi: ${sigortaMiktari.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₺</p>
-            <p><span class="result-icon kesinti">💵</span>Nakit Tahsilat Miktarı: ${nakitTahsilat.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₺</p>
-        `;
+                    `;
         document.getElementById("sonuc").style.display = "block";
     }
 </script>
