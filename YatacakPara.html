@@ -1,10 +1,89 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Hesaba Yatacak Ücreti Hesaplama</title>
     <style>
+        :root {
+            --bg-color: #000;
+            --text-color: #fff;
+            --container-bg: rgba(0, 0, 0, 0.7);
+            --button-bg: rgba(0, 100, 0, 0.8);
+            --button-hover: rgba(0, 150, 0, 0.9);
+            --accent-color: #FF7F00;
+        }
+
+        body.light-mode {
+            --bg-color: #fff;
+            --text-color: #000;
+            --container-bg: rgba(255, 255, 255, 0.8);
+            --button-bg: rgba(0, 100, 0, 0.2);
+            --button-hover: rgba(0, 150, 0, 0.3);
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--bg-color);
+            background-image: url('Kaplanlar_Motorcycle_Courrier.jpg');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid var(--accent-color);
+            border-radius: 5px;
+            background-color: var(--container-bg);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .baslik {
+            font-size: 28px;
+        }
+
+        .aciklama {
+            font-size: 18px;
+            display: block;
+        }
+
+        .tevkifat-info {
+            text-align: center;
+            color: var(--accent-color);
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            border: 1px solid var(--accent-color);
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+
         input[type="number"]::-webkit-outer-spin-button,
         input[type="number"]::-webkit-inner-spin-button {
             -webkit-appearance: none;
@@ -15,103 +94,35 @@
             -moz-appearance: textfield;
         }
 
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-image: url('Kaplanlar_Motorcycle_Courrier.jpg');
-            background-size: contain;
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-color: #000;
-            color: white;
-        }
-
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #FF7F00;
-            border-radius: 5px;
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #fff;
-        }
-
-        h2 .baslik {
-            font-size: 28px;
-        }
-
-        h2 .aciklama {
-            font-size: 18px;
-            display: block;
-        }
-
-        p.tevkifat-info {
-            text-align: center;
-            color: #FF7F00;
-            font-size: 1.1em;
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-weight: bold;
-            color: #fff;
-        }
-
-        input[type="number"],
-        select {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            font-size: 1.2em;
-            border: 1px solid #FF7F00;
-            border-radius: 4px;
-            box-sizing: border-box;
-            background-color: rgba(255, 255, 255, 0.9);
-            color: #333;
+        input[type="number"]:invalid {
+            border-color: red;
         }
 
         button {
             width: 100%;
             padding: 10px;
             font-size: 1.2em;
-            background-color: rgba(0, 100, 0, 0.8);
-            color: #fff;
-            border: 1px solid #FF7F00;
+            background-color: var(--button-bg);
+            color: var(--text-color);
+            border: 1px solid var(--accent-color);
             border-radius: 4px;
             cursor: pointer;
         }
 
         button:hover {
-            background-color: rgba(0, 150, 0, 0.9);
-            color: #FF7F00;
+            background-color: var(--button-hover);
+            color: var(--accent-color);
         }
 
         .result {
             margin-top: 20px;
             padding: 15px;
-            background-color: rgba(0, 0, 0, 0.7);
-            border: 1px solid #FF7F00;
+            background-color: var(--container-bg);
+            border: 1px solid var(--accent-color);
             border-radius: 5px;
             font-size: 1.1em;
-            color: #fff;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-        }
-
-        .result p {
-            margin: 0;
-            font-size: 1.1em;
-            display: flex;
-            align-items: center;
             gap: 10px;
         }
 
@@ -123,22 +134,37 @@
         .result-icon.kesinti {
             color: #FF0000;
         }
+
+        .mode-toggle {
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            input, select, button {
+                font-size: 1em;
+            }
+        }
     </style>
 </head>
 <body>
-
 <div class="container">
-    <h2>
-        <span class="baslik">2025 YILI<BR>YATACAK 💵 PARA HESAPLAMA</span><br>
-
-    </h2>
+    <h2><span class="baslik">2025 YILI<BR>YATACAK 💰 PARA HESAPLAMA</span></h2>
+    <div class="mode-toggle">
+        <button onclick="toggleMode()">☀️ / 🌙 Mod Değiştir</button>
+    </div>
     <p class="tevkifat-info">2025 Yılı Tevkifat Sınırı: 9.900₺</p>
-    
+
     <label for="brut">KDV Dahil Brüt Kazancınızı Giriniz:</label>
-    <input type="number" id="brut" placeholder="Örn: 16308,94" step="0.01">
+    <input type="number" id="brut" min="0" placeholder="Örn: 16308,94" step="0.01" />
 
     <label for="nakit">Nakit Tahsilat Miktarını Giriniz:</label>
-    <input type="number" id="nakit" placeholder="Örn: 500,00" step="0.01">
+    <input type="number" id="nakit" min="0" placeholder="Örn: 500,00" step="0.01" />
 
     <label for="sigorta">Tamamlayıcı Sağlık Sigortası Seçiniz:</label>
     <select id="sigorta">
@@ -146,23 +172,43 @@
         <option value="149.90">149,90₺</option>
     </select>
 
-    <button onclick="hesapla()">Hesapla</button>
-
     <div id="sonuc" class="result" style="display: none;"></div>
 </div>
 
 <script>
+    const brutInput = document.getElementById("brut");
+    const nakitInput = document.getElementById("nakit");
+    const sigortaSelect = document.getElementById("sigorta");
+    const sonucDiv = document.getElementById("sonuc");
+
+    window.onload = function () {
+        if (localStorage.getItem("brut")) brutInput.value = localStorage.getItem("brut");
+        if (localStorage.getItem("nakit")) nakitInput.value = localStorage.getItem("nakit");
+        if (localStorage.getItem("sigorta")) sigortaSelect.value = localStorage.getItem("sigorta");
+        hesapla();
+    };
+
     function hesapla() {
-        const brutUcret = parseFloat(document.getElementById("brut").value);
-        const sigortaMiktari = parseFloat(document.getElementById("sigorta").value);
-        const nakitTahsilat = parseFloat(document.getElementById("nakit").value) || 0;
+        const brutUcret = parseFloat(brutInput.value);
+        const sigortaMiktari = parseFloat(sigortaSelect.value);
+        const nakitTahsilat = parseFloat(nakitInput.value) || 0;
         const kdvOrani = 0.20;
         const tevkifatOrani = 0.20;
         const tevkifatLimit = 9900;
 
+        localStorage.setItem("brut", brutInput.value);
+        localStorage.setItem("nakit", nakitInput.value);
+        localStorage.setItem("sigorta", sigortaSelect.value);
+
         if (isNaN(brutUcret)) {
-            document.getElementById("sonuc").innerHTML = "Lütfen geçerli bir brüt tutar girin.";
-            document.getElementById("sonuc").style.display = "block";
+            sonucDiv.innerHTML = "Lütfen geçerli bir brüt tutar girin.";
+            sonucDiv.style.display = "block";
+            return;
+        }
+
+        if (brutUcret < 0 || nakitTahsilat < 0) {
+            sonucDiv.innerHTML = "Negatif değer giremezsiniz. Lütfen pozitif sayı giriniz.";
+            sonucDiv.style.display = "block";
             return;
         }
 
@@ -178,15 +224,27 @@
         yatacakPara -= sigortaMiktari;
         yatacakPara -= nakitTahsilat;
 
-        document.getElementById("sonuc").innerHTML = `
+        const bugun = new Date();
+        const tarihStr = bugun.toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+        sonucDiv.innerHTML = `
+            <p><span class="result-icon">📅</span>Hesaplama Tarihi: ${tarihStr}</p>
             <p><span class="result-icon">💰</span>Yatacak Para: ${yatacakPara.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₺</p>
             <p><span class="result-icon kesinti">💵</span>Nakit Tahsilat Miktarı: ${nakitTahsilat.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₺</p>
-            <p><span class="result-icon kesinti">📉</span>Tevkifat Kesintisi: ${tevkifatTutari.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₺</p>
+            <p><span class="result-icon kesinti">💸</span>Tevkifat Kesintisi: ${tevkifatTutari.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₺</p>
             <p><span class="result-icon kesinti">🏥</span>Tamamlayıcı Sağlık Sigortası Kesintisi: ${sigortaMiktari.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₺</p>
-                    `;
-        document.getElementById("sonuc").style.display = "block";
+        `;
+
+        sonucDiv.style.display = "block";
+    }
+
+    [brutInput, nakitInput, sigortaSelect].forEach(el => {
+        el.addEventListener('input', hesapla);
+    });
+
+    function toggleMode() {
+        document.body.classList.toggle("light-mode");
     }
 </script>
-
 </body>
 </html>
