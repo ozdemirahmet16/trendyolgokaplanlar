@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hesaba Yatacak Ücreti Hesaplama</title>
     <style>
-        /* Yukarı Aşağı Okları Kaldırma */
         input[type="number"]::-webkit-outer-spin-button,
         input[type="number"]::-webkit-inner-spin-button {
             -webkit-appearance: none;
@@ -13,7 +12,7 @@
         }
 
         input[type="number"] {
-            -moz-appearance: textfield; /* Firefox için */
+            -moz-appearance: textfield;
         }
 
         body {
@@ -33,27 +32,36 @@
             max-width: 400px;
             margin: 0 auto;
             padding: 20px;
-            border: 1px solid #FF7F00; /* Turuncu kenar */
+            border: 1px solid #FF7F00;
             border-radius: 5px;
-            background-color: rgba(0, 0, 0, 0.7); /* Şeffaf siyah arka plan */
+            background-color: rgba(0, 0, 0, 0.7);
         }
 
         h2 {
             text-align: center;
             margin-bottom: 20px;
-            color: #fff; /* Beyaz yazı */
+            color: #fff;
+        }
+
+        h2 .baslik {
+            font-size: 28px;
+        }
+
+        h2 .aciklama {
+            font-size: 18px;
+            display: block;
         }
 
         p.tevkifat-info {
             text-align: center;
-            color: #FF7F00; /* Turuncu */
+            color: #FF7F00;
             font-size: 1.1em;
             margin-bottom: 20px;
         }
 
         label {
             font-weight: bold;
-            color: #fff; /* Beyaz */
+            color: #fff;
         }
 
         input[type="number"],
@@ -63,10 +71,10 @@
             padding: 10px;
             margin-bottom: 15px;
             font-size: 1.2em;
-            border: 1px solid #FF7F00; /* Turuncu kenar */
+            border: 1px solid #FF7F00;
             border-radius: 4px;
             box-sizing: border-box;
-            background-color: rgba(255, 255, 255, 0.9); /* Hafif şeffaf beyaz */
+            background-color: rgba(255, 255, 255, 0.9);
             color: #333;
         }
 
@@ -74,26 +82,26 @@
             width: 100%;
             padding: 10px;
             font-size: 1.2em;
-            background-color: rgba(0, 100, 0, 0.8); /* Şeffaf yeşil */
-            color: #fff; /* Beyaz yazı */
-            border: 1px solid #FF7F00; /* Turuncu kenar */
+            background-color: rgba(0, 100, 0, 0.8);
+            color: #fff;
+            border: 1px solid #FF7F00;
             border-radius: 4px;
             cursor: pointer;
         }
 
         button:hover {
-            background-color: rgba(0, 150, 0, 0.9); /* Daha koyu yeşil */
-            color: #FF7F00; /* Turuncu yazı */
+            background-color: rgba(0, 150, 0, 0.9);
+            color: #FF7F00;
         }
 
         .result {
             margin-top: 20px;
             padding: 15px;
-            background-color: rgba(0, 0, 0, 0.7); /* Şeffaf siyah */
-            border: 1px solid #FF7F00; /* Turuncu kenar */
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 1px solid #FF7F00;
             border-radius: 5px;
             font-size: 1.1em;
-            color: #fff; /* Beyaz yazı */
+            color: #fff;
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -109,40 +117,28 @@
 
         .result-icon {
             font-size: 1.5em;
-            color: #00FF00; /* Yeşil */
+            color: #00FF00;
         }
-        
+
         .result-icon.kesinti {
-            color: #FF0000; /* Kırmızı */
+            color: #FF0000;
         }
-        h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #fff;
-}
-
-h2 .baslik {
-    font-size: 28px; /* Ana başlık boyutu (mevcut haliyle aynı) */
-}
-
-h2 .aciklama {
-    font-size: 18px; /* Açıklama kısmı için daha küçük boyut */
-    display: block; /* Alt satıra geçmesi için */
-}
     </style>
 </head>
 <body>
 
 <div class="container">
     <h2>
-    <span class="baslik">2025 YILI HESABA YATACAK TUTARI HESAPLAMA</span>
-    <br>
-    <span class="aciklama">KDV Dahil Brüt Kazançtan <br>Tevkifat Kesintisi ve Tamamlayıcı Sağlık Sigortası Kesintisi Yapılınca Yatacak Miktar ₺</span>
-</h2>
+        <span class="baslik">2025 YILI HESABA YATACAK TUTARI HESAPLAMA</span><br>
+        <span class="aciklama">KDV Dahil Brüt Kazançtan <br>Tevkifat Kesintisi ve Tamamlayıcı Sağlık Sigortası Kesintisi Yapılınca Yatacak Miktar ₺</span>
+    </h2>
     <p class="tevkifat-info">2025 Yılı Tevkifat Sınırı: 9.900₺</p>
     
     <label for="brut">KDV Dahil Brüt Kazancınızı Giriniz:</label>
     <input type="number" id="brut" placeholder="Örn: 16308,94" step="0.01">
+
+    <label for="nakit">Nakit Tahsilat Miktarını Giriniz:</label>
+    <input type="number" id="nakit" placeholder="Örn: 500,00" step="0.01">
 
     <label for="sigorta">Tamamlayıcı Sağlık Sigortası Seçiniz:</label>
     <select id="sigorta">
@@ -159,9 +155,10 @@ h2 .aciklama {
     function hesapla() {
         const brutUcret = parseFloat(document.getElementById("brut").value);
         const sigortaMiktari = parseFloat(document.getElementById("sigorta").value);
-        const kdvOrani = 0.20; // %20 KDV
-        const tevkifatOrani = 0.20; // %20 Tevkifat
-        const tevkifatLimit = 9900; // 2025 için 9900₺
+        const nakitTahsilat = parseFloat(document.getElementById("nakit").value) || 0;
+        const kdvOrani = 0.20;
+        const tevkifatOrani = 0.20;
+        const tevkifatLimit = 9900;
 
         if (isNaN(brutUcret)) {
             document.getElementById("sonuc").innerHTML = "Lütfen geçerli bir brüt tutar girin.";
@@ -172,21 +169,20 @@ h2 .aciklama {
         let tevkifatTutari = 0;
         let yatacakPara = brutUcret;
 
-        // Tevkifat kesintisini hesapla
         if (brutUcret > tevkifatLimit) {
             const kdvTutari = brutUcret * kdvOrani / (1 + kdvOrani);
             tevkifatTutari = kdvTutari * tevkifatOrani;
             yatacakPara = brutUcret - tevkifatTutari;
         }
 
-        // Tamamlayıcı sağlık sigortası kesintisini de dahil et
         yatacakPara -= sigortaMiktari;
+        yatacakPara -= nakitTahsilat;
 
-        // Sonuçları ekranda göster
         document.getElementById("sonuc").innerHTML = `
             <p><span class="result-icon">💰</span>Yatacak Para: ${yatacakPara.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₺</p>
             <p><span class="result-icon kesinti">📉</span>Tevkifat Kesintisi: ${tevkifatTutari.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₺</p>
             <p><span class="result-icon kesinti">🏥</span>Tamamlayıcı Sağlık Sigortası Kesintisi: ${sigortaMiktari.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₺</p>
+            <p><span class="result-icon kesinti">💵</span>Nakit Tahsilat Miktarı: ${nakitTahsilat.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₺</p>
         `;
         document.getElementById("sonuc").style.display = "block";
     }
